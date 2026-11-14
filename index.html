@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Cassino SEM sorte</title>
+  
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/games.css">
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Barra de navegacao superior com padrao Apple e responsividade mobile -->
+    <header class="top-navbar">
+      <div class="brand-section">
+        <button class="nav-home-btn" id="nav-home-btn" title="Voltar ao Lobby inicial"></button>
+        <div class="brand-title">
+          Cassino <span class="brand-sem">SEM</span> <span class="brand-sorte">sorte</span>
+        </div>
+      </div>
+
+      <!-- Alternador dos dois modos com titulos descritivos completos -->
+      <div class="mode-switch-wrapper">
+        <button class="mode-btn active-neutral" id="btn-mode-neutral">
+          <span class="status-dot neutral"></span>
+          <span class="mode-text-main">Modo Neutro</span>
+          <span class="mode-text-sub">(Fair Play)</span>
+        </button>
+        <button class="mode-btn" id="btn-mode-ralo">
+          <span class="status-dot ralo"></span>
+          <span class="mode-text-main">Modo Ralo</span>
+          <span class="mode-text-sub">(Aspirador de Saldo)</span>
+        </button>
+      </div>
+
+      <!-- Gestao e exibicao da banca -->
+      <div class="nav-actions">
+        <div class="wallet-badge" id="wallet-badge-btn" title="Clique para gerenciar sua banca">
+          <span id="wallet-icon-slot"></span>
+          <span class="wallet-label">Banca</span>
+          <span class="wallet-amount" id="wallet-display-val">R$ 1.000,00</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Palco com as telas dinamicas -->
+    <main class="main-stage">
+      
+      <!-- Tela 1 Lobby Inicial -->
+      <section class="view-section active" id="view-lobby">
+        <div class="lobby-hero">
+          <h2>Selecione uma mesa de jogo</h2>
+          <p>Experimente as probabilidades matemáticas sob a Lei dos Grandes Números</p>
+        </div>
+
+        <div class="lobby-grid">
+          <!-- Card Mina -->
+          <div class="lobby-game-card" data-target="mines">
+            <div class="lobby-card-icon" id="lobby-icon-mines"></div>
+            <div class="lobby-card-title">Mina</div>
+            <div class="lobby-card-desc">Grade 5x5 interativa com risco geométrico cumulativo por diamante.</div>
+            <button class="lobby-card-btn">Jogar Mina</button>
+          </div>
+
+          <!-- Card Aviador -->
+          <div class="lobby-game-card" data-target="aviator">
+            <div class="lobby-card-icon" id="lobby-icon-aviator"></div>
+            <div class="lobby-card-title">Aviador</div>
+            <div class="lobby-card-desc">Processo contínuo exponencial em tempo real com multiplicador ascendente.</div>
+            <button class="lobby-card-btn">Decolar Aviador</button>
+          </div>
+
+          <!-- Card Roleta -->
+          <div class="lobby-game-card" data-target="roulette">
+            <div class="lobby-card-icon" id="lobby-icon-roulette"></div>
+            <div class="lobby-card-title">Roleta</div>
+            <div class="lobby-card-desc">Roleta clássica de 37 caçapas com apostas externas e retorno padronizado.</div>
+            <button class="lobby-card-btn">Girar Roleta</button>
+          </div>
+
+          <!-- Card Slots -->
+          <div class="lobby-game-card" data-target="slots">
+            <div class="lobby-card-icon" id="lobby-icon-slots"></div>
+            <div class="lobby-card-title">Slots</div>
+            <div class="lobby-card-desc">Caça níquel de 3 cilindros com símbolos balanceados e efeito quase vitória.</div>
+            <button class="lobby-card-btn">Puxar Slots</button>
+          </div>
+
+          <!-- Card Especial do Simulador Monte Carlo -->
+          <div class="lobby-game-card sim-highlight" data-target="simulation">
+            <div class="lobby-card-content">
+              <div class="lobby-card-icon" id="lobby-icon-sim"></div>
+              <div>
+                <div class="lobby-card-title" style="font-size: 1.45rem;">Simulador Monte Carlo</div>
+                <div class="lobby-card-desc">
+                  Simule 50, 100, 1000 ou N rodadas consecutivas e compare visualmente o Modo Neutro contra o Modo Ralo.
+                </div>
+              </div>
+            </div>
+            <button class="lobby-card-btn">Abrir Simulador</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tela 2 Jogo da Mina -->
+      <section class="view-section" id="view-mines">
+        <div id="mines-game-container"></div>
+      </section>
+
+      <!-- Tela 3 Jogo do Aviador -->
+      <section class="view-section" id="view-aviator">
+        <div id="aviator-game-container"></div>
+      </section>
+
+      <!-- Tela 4 Jogo da Roleta -->
+      <section class="view-section" id="view-roulette">
+        <div id="roulette-game-container"></div>
+      </section>
+
+      <!-- Tela 5 Jogo dos Slots -->
+      <section class="view-section" id="view-slots">
+        <div id="slots-game-container"></div>
+      </section>
+
+    </main>
+
+    <!-- Modal de edicao manual da banca -->
+    <div class="modal-overlay" id="wallet-modal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 class="modal-title">Gestão de Banca do Jogador</h3>
+          <button class="modal-close-btn" id="close-wallet-modal">&times;</button>
+        </div>
+        
+        <div class="input-group">
+          <label class="input-label">Definir Novo Saldo (R$)</label>
+          <input type="number" class="text-input" id="custom-balance-input" min="0" step="50" placeholder="1000">
+        </div>
+
+        <div style="display: flex; gap: 12px; margin-top: 24px;">
+          <button class="btn-primary" id="save-balance-btn" style="flex: 1;">Salvar Saldo</button>
+          <button class="btn-secondary" id="reset-balance-1k">Restaurar R$ 1.000</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Simulacao Monte Carlo por Jogo -->
+    <div class="modal-overlay" id="sim-modal-overlay">
+      <div class="modal-card modal-sim-wide">
+        <div class="modal-header">
+          <h3 class="modal-title" id="sim-modal-game-title">Simulação Monte Carlo</h3>
+          <button class="modal-close-btn" id="close-sim-modal">&times;</button>
+        </div>
+
+        <!-- Controles de rodadas da simulacao -->
+        <div class="sim-controls-top">
+          <div class="rounds-presets">
+            <button class="preset-btn" data-rounds="50">50 rodadas</button>
+            <button class="preset-btn active" data-rounds="100">100 rodadas</button>
+            <button class="preset-btn" data-rounds="1000">1.000 rodadas</button>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Personalizado:</span>
+            <input type="number" class="text-input" id="sim-custom-rounds-input" value="100" style="width: 95px; padding: 6px 10px;" min="10" max="10000">
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Aposta/rodada:</span>
+            <input type="number" class="text-input" id="sim-bet-input" value="20" style="width: 80px; padding: 6px 10px;" min="1">
+          </div>
+
+          <button class="btn-primary" id="run-sim-action-btn">Calcular Trajetória</button>
+        </div>
+
+        <!-- Area restrita do grafico sem extrapolacao -->
+        <div class="sim-chart-viewport">
+          <canvas class="sim-chart-canvas" id="sim-chart-canvas"></canvas>
+        </div>
+
+        <!-- Legenda sutil -->
+        <div style="display: flex; gap: 20px; font-size: 0.8rem; justify-content: center; margin-bottom: 16px; flex-wrap: wrap;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="width: 10px; height: 10px; background: #0ea5e9; border-radius: 2px;"></span>
+            <span>Modo Neutro (Fair Play)</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="width: 10px; height: 10px; background: #f43f5e; border-radius: 2px;"></span>
+            <span>Modo Ralo (Aspirador de Saldo)</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="width: 14px; height: 2px; border-top: 2px dashed rgba(255,255,255,0.4);"></span>
+            <span>Banca Inicial</span>
+          </div>
+        </div>
+
+        <!-- Colunas organizadas de metricas comparativas -->
+        <div class="sim-metrics-columns">
+          
+          <!-- Coluna 1 Lucro Liquido -->
+          <div class="metric-column-box">
+            <div class="metric-sub-item">
+              <span class="metric-header-title">Lucro Líquido Neutro</span>
+              <span class="metric-strong-value" id="col-neutral-profit">R$ 0,00</span>
+            </div>
+            <div class="metric-sub-item" style="border-top: 1px solid var(--card-border); padding-top: 10px;">
+              <span class="metric-header-title">Lucro Líquido Ralo</span>
+              <span class="metric-strong-value" id="col-ralo-profit">R$ 0,00</span>
+            </div>
+          </div>
+
+          <!-- Coluna 2 Retorno Esperado -->
+          <div class="metric-column-box">
+            <div class="metric-sub-item">
+              <span class="metric-header-title">Retorno Esperado E[X] Neutro</span>
+              <span class="metric-strong-value" id="col-neutral-ev" style="font-size: 1.05rem;">R$ 0,00</span>
+            </div>
+            <div class="metric-sub-item" style="border-top: 1px solid var(--card-border); padding-top: 10px;">
+              <span class="metric-header-title">Retorno Esperado E[X] Ralo</span>
+              <span class="metric-strong-value" id="col-ralo-ev" style="font-size: 1.05rem;">R$ 0,00</span>
+            </div>
+          </div>
+
+          <!-- Coluna 3 Ruina e Quebra -->
+          <div class="metric-column-box">
+            <div class="metric-sub-item">
+              <span class="metric-header-title">Teorema da Ruína</span>
+              <span class="metric-strong-value" id="col-ruin-status" style="font-size: 1.05rem;">Monitorando</span>
+            </div>
+            <div class="metric-sub-item" style="border-top: 1px solid var(--card-border); padding-top: 10px;">
+              <span class="metric-header-title">Diagnóstico</span>
+              <span style="font-size: 0.85rem; color: var(--text-muted);" id="col-ruin-round">Em análise</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Toast flutuante de alertas -->
+    <div class="toast-notice" id="app-toast"></div>
+
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

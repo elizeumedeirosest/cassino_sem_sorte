@@ -1,0 +1,64 @@
+/* Sistema de design e variaveis visuais padrao Apple */
+
+:root {
+  --bg-primary: #07080b;
+  --bg-secondary: #0d0f15;
+  --bg-tertiary: #131722;
+  --card-bg: rgba(20, 24, 34, 0.75);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-border-hover: rgba(255, 255, 255, 0.18);
+  --card-glass: rgba(16, 20, 28, 0.88);
+
+  --text-main: #f5f5f7;
+  --text-muted: #86868b;
+  --text-subtle: #48484a;
+
+  --accent-gold: #d4a34b;
+  --accent-gold-soft: rgba(212, 163, 75, 0.15);
+  
+  --mode-neutral: #0ea5e9;
+  --mode-neutral-glow: rgba(14, 165, 233, 0.28);
+  --mode-ralo: #f43f5e;
+  --mode-ralo-glow: rgba(244, 63, 94, 0.32);
+
+  --success: #10b981;
+  --success-glow: rgba(16, 185, 129, 0.25);
+  --danger: #ef4444;
+  --danger-glow: rgba(239, 68, 68, 0.25);
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", Consolas, Menlo, monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-full: 9999px;
+
+  --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--bg-primary);
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(212, 163, 75, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(244, 63, 94, 0.04) 0%, transparent 50%);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+input, button, select {
+  font-family: inherit;
+}

@@ -1,0 +1,315 @@
+/* Componentes refinados no padrao Apple */
+
+/* Painel de aposta e controle de fichas */
+.bet-control-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bet-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.bet-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 6px 14px;
+  transition: all var(--transition-fast);
+}
+
+.bet-input-wrapper:focus-within {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 14px rgba(212, 163, 75, 0.2);
+}
+
+.currency-prefix {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+  margin-right: 8px;
+  user-select: none;
+}
+
+.bet-field {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 600;
+  width: 100%;
+}
+
+/* Fileira de botoes rapidos de multiplicacao e adicao */
+.quick-chips-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+.chip-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
+  color: var(--text-muted);
+  padding: 9px 4px;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.chip-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border-color: var(--card-border-hover);
+}
+
+/* Botoes de acao de grande escala */
+.btn-action-primary {
+  width: 100%;
+  padding: 16px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-green {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+}
+
+.btn-green:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.btn-cashout-gold {
+  background: linear-gradient(135deg, #d4a34b, #b3822d);
+  color: #000000;
+  box-shadow: 0 6px 20px rgba(212, 163, 75, 0.35);
+}
+
+.btn-sim-trigger {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--card-border);
+  color: var(--text-muted);
+  padding: 12px;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-sim-trigger:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+  border-color: var(--card-border-hover);
+}
+
+/* Overlay de vitoria ou derrota de grande porte */
+.result-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast);
+  padding: 16px;
+}
+
+.result-banner-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.result-banner-box {
+  text-align: center;
+  transform: scale(0.85);
+  transition: transform var(--transition-smooth);
+}
+
+.result-banner-overlay.show .result-banner-box {
+  transform: scale(1);
+}
+
+.result-tag {
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.result-amount {
+  font-family: var(--font-mono);
+  font-size: clamp(2rem, 7vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.result-sub {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.banner-win .result-tag {
+  color: var(--success);
+}
+
+.banner-win .result-amount {
+  color: var(--success);
+  text-shadow: 0 0 40px var(--success-glow);
+}
+
+.banner-loss .result-tag {
+  color: var(--danger);
+}
+
+.banner-loss .result-amount {
+  color: var(--danger);
+  text-shadow: 0 0 40px var(--danger-glow);
+}
+
+/* Modais estilizados com suporte a tela cheia no mobile */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-smooth);
+  padding: 16px;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--card-border-hover);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+  transform: scale(0.96);
+  transition: transform var(--transition-smooth);
+}
+
+.modal-card.modal-sim-wide {
+  max-width: 960px;
+}
+
+@media (max-width: 600px) {
+  .modal-card {
+    padding: 20px 16px;
+    border-radius: var(--radius-md);
+  }
+}
+
+.modal-overlay.open .modal-card {
+  transform: scale(1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.modal-close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: var(--text-muted);
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+/* Toast de notificacoes rapidas */
+.toast-notice {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--card-glass);
+  border: 1px solid var(--card-border-hover);
+  backdrop-filter: blur(20px);
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  font-size: 0.85rem;
+  color: var(--text-main);
+  z-index: 600;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all var(--transition-smooth);
+  max-width: calc(100vw - 48px);
+}
+
+.toast-notice.show {
+  transform: translateY(0);
+  opacity: 1;
+}

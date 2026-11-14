@@ -1,0 +1,390 @@
+/* Estilos dedicados aos 4 jogos e ao painel de simulacao Monte Carlo */
+
+/* Layout padrao da mesa de jogo */
+.game-card-container {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(24px);
+  padding: 30px;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 30px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+}
+
+@media (max-width: 960px) {
+  .game-card-container {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    gap: 20px;
+  }
+}
+
+/* Painel de controle lateral de apostas */
+.control-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid var(--card-border);
+  padding: 22px;
+  border-radius: var(--radius-md);
+}
+
+/* Painel visual de renderizacao do jogo */
+.display-viewport {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  min-height: 440px;
+  padding: 16px;
+}
+
+/* Jogo 1 Mina */
+.mines-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 74px);
+  grid-template-rows: repeat(5, 74px);
+  gap: 12px;
+}
+
+@media (max-width: 520px) {
+  .mines-grid {
+    grid-template-columns: repeat(5, minmax(44px, 58px));
+    grid-template-rows: repeat(5, minmax(44px, 58px));
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.mine-tile {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.mine-tile:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--card-border-hover);
+  transform: scale(1.04);
+}
+
+.mine-tile.revealed-diamond {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: #38bdf8;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+  animation: popTile 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mine-tile.revealed-bomb {
+  background: rgba(244, 63, 94, 0.2);
+  border-color: #f43f5e;
+  box-shadow: 0 0 18px rgba(244, 63, 94, 0.3);
+  animation: shakeTile 280ms ease;
+}
+
+@keyframes popTile {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shakeTile {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Jogo 2 Aviador */
+.aviator-canvas-wrap {
+  width: 100%;
+  height: 440px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  .aviator-canvas-wrap {
+    height: 300px;
+  }
+}
+
+.aviator-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.aviator-overlay-stats {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.aviator-multiplier-text {
+  font-family: var(--font-mono);
+  font-size: clamp(3rem, 11vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  text-shadow: 0 0 45px rgba(255, 255, 255, 0.25);
+}
+
+.aviator-multiplier-text.crashed {
+  color: var(--danger);
+  animation: pulseCrashText 350ms infinite alternate;
+}
+
+@keyframes pulseCrashText {
+  from { opacity: 0.8; transform: scale(1); }
+  to { opacity: 1; transform: scale(1.04); }
+}
+
+/* Jogo 3 Roleta */
+.roulette-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 12px;
+}
+
+.roulette-wheel-canvas {
+  width: 260px;
+  height: 260px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.65);
+}
+
+@media (max-width: 480px) {
+  .roulette-wheel-canvas {
+    width: 210px;
+    height: 210px;
+  }
+}
+
+.roulette-board {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  max-width: 580px;
+  width: 100%;
+}
+
+.roulette-bet-chip {
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+@media (max-width: 480px) {
+  .roulette-bet-chip {
+    flex: 1 1 calc(50% - 8px);
+    text-align: center;
+  }
+}
+
+.roulette-bet-chip:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.roulette-bet-chip.selected {
+  border-color: var(--accent-gold);
+  background: var(--accent-gold-soft);
+  color: var(--accent-gold);
+  box-shadow: 0 0 14px rgba(212, 163, 75, 0.25);
+}
+
+/* Jogo 4 Slots */
+.slots-reels-box {
+  display: flex;
+  gap: 16px;
+  padding: 24px 32px;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--card-border);
+}
+
+@media (max-width: 480px) {
+  .slots-reels-box {
+    padding: 16px 20px;
+    gap: 10px;
+  }
+}
+
+.slot-reel {
+  width: 104px;
+  height: 144px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+  position: relative;
+}
+
+@media (max-width: 480px) {
+  .slot-reel {
+    width: min(84px, 24vw);
+    height: min(120px, 34vw);
+    font-size: min(2.8rem, 10vw);
+  }
+}
+
+.slot-reel.spinning {
+  animation: blurReelSpin 100ms infinite;
+}
+
+@keyframes blurReelSpin {
+  0% { transform: translateY(-4px); filter: blur(3px); }
+  50% { transform: translateY(4px); filter: blur(4px); }
+  100% { transform: translateY(-4px); filter: blur(3px); }
+}
+
+/* Painel e Janela do Simulador Monte Carlo */
+.sim-controls-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .sim-controls-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.rounds-presets {
+  display: flex;
+  gap: 8px;
+}
+
+@media (max-width: 520px) {
+  .rounds-presets {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .rounds-presets .preset-btn {
+    padding: 8px 6px;
+    text-align: center;
+  }
+}
+
+.preset-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
+  color: var(--text-muted);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.preset-btn:hover, .preset-btn.active {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  border-color: var(--card-border-hover);
+}
+
+.sim-chart-viewport {
+  width: 100%;
+  height: 290px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 480px) {
+  .sim-chart-viewport {
+    height: 240px;
+  }
+}
+
+.sim-chart-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Colunas organizadas de metricas da simulacao */
+.sim-metrics-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 768px) {
+  .sim-metrics-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.metric-column-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.metric-sub-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metric-header-title {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.metric-strong-value {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+}

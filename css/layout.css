@@ -1,0 +1,427 @@
+/* Estrutura de layout geral e navegacao refinada */
+
+.app-container {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Barra superior minimalista */
+.top-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background: var(--card-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  position: sticky;
+  top: 14px;
+  z-index: 100;
+  gap: 16px;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Botao de retorno a pagina inicial */
+.nav-home-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--card-border);
+  color: var(--text-muted);
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.nav-home-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  border-color: var(--card-border-hover);
+  transform: scale(1.04);
+}
+
+/* Logotipo personalizado com destaque */
+.brand-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.brand-title .brand-sem {
+  color: #f43f5e;
+  font-weight: 900;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  text-shadow: 0 0 16px rgba(244, 63, 94, 0.35);
+}
+
+.brand-title .brand-sorte {
+  color: #e5e5ea;
+  font-weight: 400;
+  font-style: italic;
+  font-family: Georgia, "SF Pro Display", serif;
+}
+
+/* Alternador dos dois modos com titulos descritivos */
+.mode-switch-wrapper {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 4px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--card-border);
+  gap: 4px;
+}
+
+.mode-btn {
+  background: transparent;
+  border: none;
+  padding: 7px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.mode-btn:hover {
+  color: var(--text-main);
+}
+
+.mode-btn.active-neutral {
+  background: var(--mode-neutral);
+  color: #ffffff;
+  box-shadow: 0 0 16px var(--mode-neutral-glow);
+}
+
+.mode-btn.active-ralo {
+  background: var(--mode-ralo);
+  color: #ffffff;
+  box-shadow: 0 0 16px var(--mode-ralo-glow);
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.status-dot.neutral {
+  background: var(--mode-neutral);
+}
+
+.status-dot.ralo {
+  background: var(--mode-ralo);
+}
+
+/* Acoes de topo e saldo */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.wallet-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 7px 16px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--card-border);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.wallet-badge:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: var(--card-border-hover);
+  transform: translateY(-1px);
+}
+
+.wallet-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.wallet-amount {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+}
+
+/* Palco principal onde os jogos e o lobby sao montados */
+.main-stage {
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.view-section {
+  display: none;
+  animation: fadeInView 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.view-section.active {
+  display: block;
+}
+
+@keyframes fadeInView {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Lobby inicial com vitrine de jogos */
+.lobby-hero {
+  text-align: center;
+  padding: 24px 20px 36px;
+}
+
+.lobby-hero h2 {
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+
+.lobby-hero p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.lobby-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+.lobby-game-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(20px);
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.lobby-game-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--card-border-hover);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+}
+
+.lobby-card-icon {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--card-border);
+  transition: all var(--transition-fast);
+}
+
+.lobby-game-card:hover .lobby-card-icon {
+  transform: scale(1.08);
+}
+
+.lobby-card-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+
+.lobby-card-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  line-height: 1.45;
+  flex-grow: 1;
+}
+
+.lobby-card-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all var(--transition-fast);
+}
+
+.lobby-game-card:hover .lobby-card-btn {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+/* Card especial do simulador de Monte Carlo no lobby */
+.lobby-game-card.sim-highlight {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: left;
+  padding: 32px 40px;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(20, 24, 34, 0.85));
+  border-color: rgba(168, 85, 247, 0.25);
+}
+
+.lobby-game-card.sim-highlight .lobby-card-content {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.lobby-game-card.sim-highlight .lobby-card-desc {
+  margin-bottom: 0;
+}
+
+.lobby-game-card.sim-highlight .lobby-card-btn {
+  width: auto;
+  padding: 12px 28px;
+  background: rgba(168, 85, 247, 0.2);
+  border-color: rgba(168, 85, 247, 0.4);
+  color: #ffffff;
+}
+
+.lobby-game-card.sim-highlight:hover .lobby-card-btn {
+  background: #a855f7;
+  color: #ffffff;
+  border-color: #a855f7;
+}
+
+/* Otimizacoes de responsividade mobile */
+@media (max-width: 860px) {
+  .app-container {
+    padding: 12px 12px 32px;
+    gap: 16px;
+  }
+
+  .top-navbar {
+    flex-wrap: wrap;
+    padding: 12px 16px;
+    top: 8px;
+    border-radius: var(--radius-md);
+  }
+
+  .brand-section {
+    order: 1;
+  }
+
+  .nav-actions {
+    order: 2;
+  }
+
+  .mode-switch-wrapper {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 4px;
+  }
+
+  .mode-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 8px 10px;
+    font-size: 0.76rem;
+  }
+
+  .lobby-hero h2 {
+    font-size: 1.6rem;
+  }
+
+  .lobby-hero p {
+    font-size: 0.85rem;
+  }
+
+  .lobby-game-card.sim-highlight {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px 20px;
+  }
+
+  .lobby-game-card.sim-highlight .lobby-card-content {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .lobby-game-card.sim-highlight .lobby-card-btn {
+    width: 100%;
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 460px) {
+  .mode-text-sub {
+    display: none;
+  }
+
+  .brand-title {
+    font-size: 1.1rem;
+  }
+
+  .wallet-badge {
+    padding: 6px 10px;
+  }
+
+  .wallet-label {
+    display: none;
+  }
+
+  .wallet-amount {
+    font-size: 0.88rem;
+  }
+}
