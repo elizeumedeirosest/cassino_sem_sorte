@@ -18,12 +18,6 @@ Plataforma interativa de simulação probabilística desenvolvida para demonstra
 
 Permite ao participante definir uma banca inicial e executar baterias de rodadas (50, 100, 1000 ou valores arbitrários) comparando simultaneamente a curva patrimonial teórica contra a curva do Modo Ralo.
 
-## Como Executar
-
-Por ser uma aplicação web moderna e independente, nenhum processo de compilação é necessário. Basta abrir o arquivo `index.html` em qualquer navegador web moderno ou iniciar um servidor estático local:
-
-```bash
-python -m http.server 8000
 ```
 
 Acesse em seu navegador o endereço: `http://localhost:8000`
