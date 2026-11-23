@@ -10,7 +10,6 @@ export class RouletteGame {
     this.app = app;
     this.bet = 20;
     this.selectedBetType = 'red';
-    this.selectedNumber = null;
     this.spinning = false;
     this.wheelAngle = 0;
 
@@ -25,6 +24,7 @@ export class RouletteGame {
     this.ctx = null;
     this.spinBtn = null;
     this.betInput = null;
+    this.singleNumInput = null;
     this.resultEl = null;
     this.bannerOverlay = null;
   }
@@ -33,7 +33,7 @@ export class RouletteGame {
     this.container = containerEl;
     this.render();
     this.bindEvents();
-    this.drawWheel();
+    this.drawWheel(this.wheelAngle);
   }
 
   render() {
@@ -92,7 +92,7 @@ export class RouletteGame {
           <!-- Overlay de resultado em destaque -->
           <div class="result-banner-overlay" id="roulette-banner-overlay">
             <div class="result-banner-box">
-              <div class="result-tag" id="roulette-banner-tag">VITÓRIA</div>
+              <div class="result-tag" id="roulette-banner-tag">VITÓRIA NA MESA</div>
               <div class="result-amount" id="roulette-banner-amount">+ R$ 0,00</div>
               <div class="result-sub" id="roulette-banner-sub">Número sorteado: 0</div>
             </div>
@@ -194,7 +194,7 @@ export class RouletteGame {
       this.ctx.save();
       this.ctx.rotate(startAngle + sliceAngle / 2);
       this.ctx.fillStyle = '#ffffff';
-      this.ctx.font = '10px -apple-system, sans-serif';
+      this.ctx.font = '11px -apple-system, sans-serif';
       this.ctx.textAlign = 'right';
       this.ctx.fillText(num.toString(), radius - 8, 4);
       this.ctx.restore();
@@ -210,11 +210,12 @@ export class RouletteGame {
 
     this.ctx.restore();
 
+    /* Marcador fixo superior estilo flecha apontando para o topo da roda */
     this.ctx.fillStyle = '#d4a34b';
     this.ctx.beginPath();
-    this.ctx.moveTo(cx, 16);
-    this.ctx.lineTo(cx - 7, 0);
-    this.ctx.lineTo(cx + 7, 0);
+    this.ctx.moveTo(cx, 22);
+    this.ctx.lineTo(cx - 8, 4);
+    this.ctx.lineTo(cx + 8, 4);
     this.ctx.closePath();
     this.ctx.fill();
   }
@@ -252,29 +253,44 @@ export class RouletteGame {
     const currentMode = this.app.getMode();
     const winningNumber = ProbabilityEngine.getRouletteOutcome(currentMode, activeBets);
 
+    /* Calculo trigonometrico exato para alinhar o numero sob o ponteiro superior */
     const targetIndex = this.pockets.indexOf(winningNumber);
     const sliceAngle = (Math.PI * 2) / this.pockets.length;
-    const targetAngle = (3 * Math.PI / 2) - (targetIndex * sliceAngle + sliceAngle / 2);
-    const totalRotation = Math.PI * 12 + targetAngle;
+    const twoPi = Math.PI * 2;
+
+    /* O ponteiro superior esta no angulo menos pi sobre dois */
+    const targetAngle = -Math.PI / 2 - (targetIndex * sliceAngle + sliceAngle / 2);
+    const normalizedTarget = ((targetAngle % twoPi) + twoPi) % twoPi;
+    const normalizedCurrent = ((this.wheelAngle % twoPi) + twoPi) % twoPi;
+
+    let diff = normalizedTarget - normalizedCurrent;
+    if (diff <= 0) {
+      diff += twoPi;
+    }
+
+    const fullSpins = 6;
+    const totalSpin = fullSpins * twoPi + diff;
+    const startAngle = this.wheelAngle;
 
     const startTime = performance.now();
-    const duration = 3000;
+    const duration = 3200;
 
     const animateSpin = (now) => {
       const elapsed = now - startTime;
       const progress = Math.min(1, elapsed / duration);
       const easeOut = 1 - Math.pow(1 - progress, 3);
-      const currentAngle = this.wheelAngle + totalRotation * easeOut;
+      const currentAngle = startAngle + totalSpin * easeOut;
 
       this.drawWheel(currentAngle);
-      if (Math.floor(elapsed / 120) % 2 === 0) {
+      if (Math.floor(elapsed / 110) % 2 === 0) {
         sound.playTick();
       }
 
       if (progress < 1) {
         requestAnimationFrame(animateSpin);
       } else {
-        this.wheelAngle = currentAngle % (Math.PI * 2);
+        this.wheelAngle = startAngle + totalSpin;
+        this.drawWheel(this.wheelAngle);
         this.evaluateResult(winningNumber, activeBets);
       }
     };

@@ -189,6 +189,7 @@ export class AviatorGame {
     this.multiplierEl.textContent = '1.00x';
     this.actionBtn.textContent = `Encerrar (${wallet.constructor.formatBRL(this.bet)})`;
     this.actionBtn.className = 'btn-action-primary btn-cashout-gold';
+    this.actionBtn.disabled = false;
 
     this.startTime = performance.now();
     sound.playClick();
@@ -196,6 +197,8 @@ export class AviatorGame {
   }
 
   animateFlight() {
+    if (!this.active) return;
+
     const now = performance.now();
     const elapsedSeconds = (now - this.startTime) / 1000;
 
@@ -283,15 +286,23 @@ export class AviatorGame {
   cashout() {
     if (!this.active || this.cashedOut) return;
     this.cashedOut = true;
+    this.active = false;
+    cancelAnimationFrame(this.animationId);
+
     const winAmount = this.bet * this.multiplier;
     wallet.award(winAmount);
     sound.playSuccess();
-    this.actionBtn.textContent = 'Ganhos Garantidos';
-    this.actionBtn.disabled = true;
+
+    this.actionBtn.textContent = 'Decolar Novamente';
+    this.actionBtn.className = 'btn-action-primary btn-green';
+    this.actionBtn.disabled = false;
+
     this.showBanner(true, winAmount, this.multiplier);
   }
 
   triggerCrash() {
+    if (this.cashedOut) return;
+
     cancelAnimationFrame(this.animationId);
     this.active = false;
     sound.playBoom();
@@ -303,9 +314,7 @@ export class AviatorGame {
     this.actionBtn.className = 'btn-action-primary btn-green';
     this.actionBtn.disabled = false;
 
-    if (!this.cashedOut) {
-      this.showBanner(false, this.bet, this.crashPoint);
-    }
+    this.showBanner(false, this.bet, this.crashPoint);
   }
 
   showBanner(isWin, amount, mult) {

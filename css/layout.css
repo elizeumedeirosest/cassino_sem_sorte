@@ -213,7 +213,7 @@
 /* Lobby inicial com vitrine de jogos */
 .lobby-hero {
   text-align: center;
-  padding: 24px 20px 36px;
+  padding: 20px 20px 32px;
 }
 
 .lobby-hero h2 {
@@ -233,7 +233,7 @@
 .lobby-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 22px;
+  gap: 24px;
 }
 
 .lobby-game-card {
@@ -241,7 +241,7 @@
   border: 1px solid var(--card-border);
   border-radius: var(--radius-lg);
   backdrop-filter: blur(20px);
-  padding: 36px 28px;
+  padding: 40px 28px 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -253,52 +253,49 @@
 }
 
 .lobby-game-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
   border-color: var(--card-border-hover);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
 }
 
+/* Icone ampliado em destaque no lobby */
 .lobby-card-icon {
-  margin-bottom: 20px;
+  margin-bottom: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 76px;
-  height: 76px;
-  border-radius: var(--radius-lg);
+  width: 108px;
+  height: 108px;
+  border-radius: 26px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--card-border);
-  transition: all var(--transition-fast);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  transition: all var(--transition-smooth);
 }
 
 .lobby-game-card:hover .lobby-card-icon {
-  transform: scale(1.08);
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--card-border-hover);
 }
 
 .lobby-card-title {
-  font-size: 1.35rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  margin-bottom: 6px;
-}
-
-.lobby-card-desc {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-bottom: 24px;
-  line-height: 1.45;
-  flex-grow: 1;
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 26px;
+  color: #ffffff;
 }
 
 .lobby-card-btn {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   border-radius: var(--radius-md);
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--card-border);
   color: var(--text-main);
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   transition: all var(--transition-fast);
 }
 
@@ -306,6 +303,7 @@
   background: #ffffff;
   color: #000000;
   border-color: #ffffff;
+  transform: translateY(-1px);
 }
 
 /* Card especial do simulador de Monte Carlo no lobby */
@@ -314,9 +312,9 @@
   flex-direction: row;
   justify-content: space-between;
   text-align: left;
-  padding: 32px 40px;
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(20, 24, 34, 0.85));
-  border-color: rgba(168, 85, 247, 0.25);
+  padding: 30px 42px;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.09), rgba(20, 24, 34, 0.88));
+  border-color: rgba(168, 85, 247, 0.28);
 }
 
 .lobby-game-card.sim-highlight .lobby-card-content {
@@ -325,15 +323,22 @@
   gap: 24px;
 }
 
-.lobby-game-card.sim-highlight .lobby-card-desc {
+.lobby-game-card.sim-highlight .lobby-card-icon {
+  margin-bottom: 0;
+  width: 92px;
+  height: 92px;
+  flex-shrink: 0;
+}
+
+.lobby-game-card.sim-highlight .lobby-card-title {
   margin-bottom: 0;
 }
 
 .lobby-game-card.sim-highlight .lobby-card-btn {
   width: auto;
-  padding: 12px 28px;
-  background: rgba(168, 85, 247, 0.2);
-  border-color: rgba(168, 85, 247, 0.4);
+  padding: 13px 32px;
+  background: rgba(168, 85, 247, 0.22);
+  border-color: rgba(168, 85, 247, 0.45);
   color: #ffffff;
 }
 
